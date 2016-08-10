@@ -70,6 +70,7 @@ public class MainActivity extends BaseActivity{
 		// TODO Auto-generated method stub
 		RequestQueue mQueue = Volley.newRequestQueue(this);  
 		
+		//加缓存
 		ImageLoader imageLoader = new ImageLoader(mQueue, new BitmapCache());
 		
 		ImageListener listener = ImageLoader.getImageListener(img1,  
