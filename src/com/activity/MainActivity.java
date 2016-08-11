@@ -1,4 +1,4 @@
-package com.http;
+package com.activity;
 
 import android.util.Log;
 import android.view.View;
@@ -7,14 +7,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageLoader.ImageListener;
-import com.android.volley.toolbox.Volley;
+import com.application.MyApplication;
+import com.base.BaseActivity;
+import com.bean.LoginBean;
+import com.config.TagConfig;
+import com.config.UrlConfig;
+import com.http.ActivityDataRequest;
+import com.http.JsonUtil;
+import com.http.VolleySingleton;
 import com.utils.BitmapCache;
-import com.utils.DataRequest;
-import com.utils.JsonUtil;
-import com.utils.LoginBean;
 
 import coo.http.R;
 
@@ -61,45 +64,28 @@ public class MainActivity extends BaseActivity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				DataRequest.getImage(MainActivity.this, img1);
+				ActivityDataRequest.getImage(MainActivity.this, img1);
 			}
 		});
-	}
-
-	protected void ImageHttp() {
-		// TODO Auto-generated method stub
-		RequestQueue mQueue = Volley.newRequestQueue(this);  
-		
-		//加缓存
-		ImageLoader imageLoader = new ImageLoader(mQueue, new BitmapCache());
-		
-		ImageListener listener = ImageLoader.getImageListener(img1,  
-		        R.drawable.default_image, R.drawable.failed_image); 
-		imageLoader.get("http://img.my.csdn.net/uploads/201404/13/1397393290_5765.jpeg", listener); 
 	}
 
 	protected void TextHttp() {
 		// TODO Auto-generated method stub
 		LoginBean loginb = new LoginBean();
-		loginb.setLogin("login");
-		loginb.setCode("code");
 		loginb.setPhone("15236290644");
-		DataRequest.getLoginCheck(1,this, loginb);
+		ActivityDataRequest.getLoginCheck(TagConfig.TAG_MSG,this, loginb);
 		
 		LoginBean loginb2 = new LoginBean();
-		loginb2.setLogin("login");
-		loginb2.setCode("code");
 		loginb2.setPhone("15631001601");
-		DataRequest.getLoginCheck(2,this, loginb2);
+		ActivityDataRequest.getLoginCheck(2,this, loginb2);
 		
 	}
 
 	@Override
 	public void toParseJson(int tag,String response) {
 		switch (tag) {
-		case 1:
+		case TagConfig.TAG_MSG:
 			Log.i("FJ", response);
-
 			LoginBean lm = JsonUtil.getLogin(response);
 			if (lm != null) {
 				cityName = lm.getMsg();

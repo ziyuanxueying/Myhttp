@@ -1,4 +1,4 @@
-package com.utils;
+package com.bean;
 
 public class LoginBean {
 	private String login;

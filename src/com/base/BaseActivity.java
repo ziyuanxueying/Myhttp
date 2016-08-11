@@ -1,4 +1,4 @@
-package com.http;
+package com.base;
 
 import android.app.Activity;
 import android.os.Bundle;
